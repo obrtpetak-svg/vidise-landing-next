@@ -5,8 +5,15 @@ import type { Metadata } from "next";
 const data = subpageData["projekti"];
 
 export const metadata: Metadata = {
-  title: `${data.title} — Vi-Di-Sef`,
+  title: data.title,
   description: data.subtitle,
+  alternates: { canonical: "https://vi-di-sef.com/projekti" },
+  openGraph: {
+    title: `${data.title} — Vi-Di-Sef`,
+    description: data.subtitle,
+    url: "https://vi-di-sef.com/projekti",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 export default function Page() {
