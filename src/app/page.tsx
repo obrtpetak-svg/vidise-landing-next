@@ -1,123 +1,152 @@
-import Link from "next/link";
+"use client";
 import Image from "next/image";
+import Link from "next/link";
+import { toast } from "sonner";
 import { Reveal, MagneticButton, TiltCard, CountUp } from "@/components/motion";
 import { AiDemo } from "@/components/ai-demo";
-import { features } from "@/lib/features-data";
 import { FAQ } from "@/components/faq";
+import { ComparisonTable } from "@/components/comparison-table";
+import { LiveFeed } from "@/components/live-feed";
+import { RoiCalculator } from "@/components/roi-calculator";
+import { PersonaTabs } from "@/components/persona-tabs";
+import { FeatureShowcase } from "@/components/feature-showcase";
+import { features } from "@/lib/features-data";
+import {
+  ArrowRight, Play, Clock, FolderKanban, Receipt, Truck, Car, Users,
+  Building, ListChecks, BarChart3, Shield, BookOpen, CloudSun, MapPin,
+  QrCode, Palmtree, Calendar, Bell, Zap, Lock, FileCheck, Smartphone
+} from "lucide-react";
+
+const featureIcons: Record<string, React.ReactNode> = {
+  "⏱️": <Clock size={22} />, "📋": <FolderKanban size={22} />, "🧾": <Receipt size={22} />,
+  "📦": <Truck size={22} />, "🚗": <Car size={22} />, "👷": <Users size={22} />,
+  "🏠": <Building size={22} />, "✅": <ListChecks size={22} />, "📊": <BarChart3 size={22} />,
+  "🔐": <Shield size={22} />, "📒": <BookOpen size={22} />, "🌤️": <CloudSun size={22} />,
+  "📍": <MapPin size={22} />, "📲": <QrCode size={22} />, "🏖️": <Palmtree size={22} />,
+  "📅": <Calendar size={22} />, "🔔": <Bell size={22} />,
+};
 
 export default function Home() {
   return (
     <>
-      {/* ═══════ Hero ═══════ */}
-      <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+      {/* ━━━ HERO ━━━ */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="spotlight" />
-        <div className="hero-glow -right-32 top-0" />
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <Reveal>
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-xs font-semibold text-accent mb-6">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                Nova verzija — Sigurnost & Performanse
-              </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-[-3px] leading-[1.05] mb-6">
-                Upravljaj<br />radnom snagom<br />
-                <span className="gradient-text">bez kompromisa.</span>
-              </h1>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8 max-w-lg">
-                Vi-Di-Sef je platforma koja donosi red u kaos građevine.
-                Evidencija sati, projekti, računi, otpremnice — sve na jednom mjestu,
-                u realnom vremenu, s bilo kojeg uređaja.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <MagneticButton>
-                  <a href="https://vi-di-sef.app" target="_blank" rel="noopener"
-                    className="inline-flex items-center gap-2.5 bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-2xl text-base font-bold transition-all hover:shadow-[0_12px_40px_rgba(217,93,8,0.4)]">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                    Započni besplatno
-                  </a>
-                </MagneticButton>
-                <MagneticButton>
-                  <a href="#features"
-                    className="inline-flex items-center gap-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-white px-8 py-4 rounded-2xl text-base font-bold transition-all">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                    Saznaj više
-                  </a>
-                </MagneticButton>
-              </div>
-            </Reveal>
-            <Reveal delay={0.2} direction="right">
-              <div className="relative">
-                <div className="hero-glow absolute -inset-10" />
-                <Image src="/hero-app.png" alt="Vi-Di-Sef Dashboard" width={800} height={600}
-                  className="rounded-2xl border border-white/[0.06] shadow-2xl shadow-black/40 relative z-10"
-                  priority />
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ Trusted By ═══════ */}
-      <section className="py-12 border-y border-white/[0.04]">
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="hero-glow absolute top-0 -right-40" />
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
           <Reveal>
-            <div className="text-center text-xs font-medium text-slate-600 uppercase tracking-widest mb-8">
-              Pouzdani partneri iz građevinskog sektora
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/[0.08] border border-accent/20 text-accent text-xs font-bold mb-8 animate-pulse">
+              <Zap size={14} />
+              Novo: AI Asistent & GPS Praćenje
             </div>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-              {["🏗️ GradCo", "🏢 BuildPro", "🔨 Konstrukt d.o.o.", "🏠 Domex", "⚡ ElektroGrad"].map((name, i) => (
-                <span key={i} className="text-slate-500/50 text-sm font-semibold hover:text-slate-400 transition-colors cursor-default whitespace-nowrap">{name}</span>
-              ))}
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-6">
+              Upravljaj radnom<br />snagom <span className="gradient-text">bez kompromisa.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed">
+              Evidencija sati, projekti, računi, otpremnice, GPS praćenje —{" "}
+              <strong className="text-[var(--text-primary)]">sve na jednom mjestu</strong>, u realnom vremenu.
+            </p>
+          </Reveal>
+          <Reveal delay={0.3}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <MagneticButton>
+                <a href="https://vi-di-sef.app" target="_blank" rel="noopener"
+                  onClick={() => toast.success("Preusmjeravamo te na Vi-Di-Sef app...")}
+                  className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-2xl text-base font-bold transition-all hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(217,93,8,0.4)]">
+                  Započni besplatno
+                  <ArrowRight size={18} />
+                </a>
+              </MagneticButton>
+              <a href="#showcase"
+                onClick={() => toast("Scrollamo do showcase sekcije...", { icon: "🎬" })}
+                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-accent/20 transition-all">
+                <Play size={16} className="text-accent" />
+                Pogledaj mogućnosti
+              </a>
+            </div>
+          </Reveal>
+
+          {/* Hero images */}
+          <Reveal delay={0.4}>
+            <div className="mt-16 flex justify-center gap-6">
+              <div className="card-base card-glow p-2 max-w-[500px] w-full hover:-translate-y-2 transition-transform duration-500">
+                <Image src="/hero-dashboard.png" alt="Vi-Di-Sef Dashboard" width={800} height={500} className="rounded-xl w-full" />
+              </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ═══════ Stats ═══════ */}
-      <section id="stats" className="py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[{ val: 500, label: "Aktivnih radnika", suffix: "+" },
-            { val: 12000, label: "Evidentiranih sati/mj", suffix: "+" },
-            { val: 98, label: "% točnost evidencije", suffix: "%" },
-            { val: 75, label: "% manje administracije", suffix: "%" }
-            ].map((s, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="card-base p-6 text-center">
-                  <CountUp target={s.val} suffix={s.suffix}
-                    className="text-3xl md:text-4xl font-black gradient-text" />
-                  <div className="text-xs text-slate-500 mt-2 font-medium">{s.label}</div>
-                </div>
-              </Reveal>
+      {/* ━━━ TRUSTED BY ━━━ */}
+      <section className="py-12 border-y border-[var(--border-color)]">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-6">Koriste nas građevinske tvrtke diljem Hrvatske</p>
+          <div className="flex items-center justify-center gap-10 flex-wrap opacity-40">
+            {["Gradnja Plus d.o.o.", "Betonara Zagreb", "Obrt Petak", "Inženjering Split", "Građevinar Osijek"].map((name) => (
+              <span key={name} className="text-sm font-bold text-[var(--text-muted)] whitespace-nowrap">{name}</span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════ Features ═══════ */}
-      <section id="features" className="py-24">
+      {/* ━━━ STATS ━━━ */}
+      <section className="py-20">
+        <div className="max-w-[900px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { val: 500, suffix: "+", label: "Registriranih radnika", icon: <Users size={20} className="text-blue-400" /> },
+            { val: 12000, suffix: "+", label: "Evidentiranih sati", icon: <Clock size={20} className="text-emerald-400" /> },
+            { val: 98, suffix: "%", label: "Zadovoljstvo korisnika", icon: <Zap size={20} className="text-amber-400" /> },
+            { val: 75, suffix: "%", label: "Manje administracije", icon: <BarChart3 size={20} className="text-purple-400" /> },
+          ].map((s, i) => (
+            <Reveal key={i} delay={i * 0.1}>
+              <div className="card-base p-5 text-center">
+                <div className="flex justify-center mb-2">{s.icon}</div>
+                <div className="text-3xl md:text-4xl font-black">
+                  <CountUp target={s.val} suffix={s.suffix} />
+                </div>
+                <div className="text-xs text-[var(--text-muted)] mt-1">{s.label}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ━━━ PERSONA TABS ━━━ */}
+      <PersonaTabs />
+
+      {/* ━━━ FEATURE SHOWCASE (pinned scroll) ━━━ */}
+      <div id="showcase">
+        <FeatureShowcase />
+      </div>
+
+      {/* ━━━ FEATURES GRID ━━━ */}
+      <section id="features" className="py-24 border-t border-[var(--border-color)]">
         <div className="max-w-[1200px] mx-auto px-6">
           <Reveal>
             <div className="text-center mb-16">
-              <div className="section-tag mb-4">Mogućnosti</div>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                Sve što trebaš.<br />Ništa što ne trebaš.
+              <div className="section-tag mb-4">Svi moduli</div>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+                17+ modula.<br /><span className="gradient-text">Jedna platforma.</span>
               </h2>
-              <p className="text-slate-400 mt-4 max-w-lg mx-auto">
-                Izgrađen za stvarne probleme građevinskih tvrtki — od terena do ureda.
-              </p>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map((f, i) => (
-              <Reveal key={f.href} delay={(i % 6) * 0.08}>
+              <Reveal key={i} delay={i * 0.03}>
                 <TiltCard>
-                  <Link href={f.href} className="card-base block p-6 group relative overflow-hidden h-full">
-                    <span className="absolute top-4 right-4 text-accent/0 group-hover:text-accent/60 text-lg transition-all duration-300 translate-x-2 group-hover:translate-x-0">→</span>
-                    <div className="text-3xl mb-3">{f.icon}</div>
-                    <div className="font-bold mb-2">{f.title}</div>
-                    <div className="text-sm text-slate-500 leading-relaxed">{f.desc}</div>
-                    <div className="text-xs text-accent font-semibold mt-4 opacity-0 group-hover:opacity-100 transition-opacity">Saznaj više →</div>
+                  <Link href={f.href} className="card-base card-glow p-6 block h-full group">
+                    <div className="w-11 h-11 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4 group-hover:scale-110 transition-transform">
+                      {featureIcons[f.icon] || <Zap size={22} />}
+                    </div>
+                    <h3 className="font-bold mb-1 group-hover:text-accent transition-colors">{f.title}</h3>
+                    <p className="text-xs text-[var(--text-muted)] leading-relaxed">{f.desc}</p>
+                    <div className="mt-3 flex items-center gap-1 text-[10px] text-accent font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                      Saznaj više <ArrowRight size={12} />
+                    </div>
                   </Link>
                 </TiltCard>
               </Reveal>
@@ -126,31 +155,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════ AI Demo ═══════ */}
-      <AiDemo />
+      {/* ━━━ COMPARISON TABLE ━━━ */}
+      <ComparisonTable />
 
-      {/* ═══════ How It Works ═══════ */}
-      <section id="how" className="py-24 border-t border-white/[0.04]">
+      {/* ━━━ AI DEMO ━━━ */}
+      <section id="ai" className="py-24 border-t border-[var(--border-color)]">
         <div className="max-w-[1200px] mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-16">
-              <div className="section-tag mb-4">Kako radi</div>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight">Spreman za 5 minuta.</h2>
-              <p className="text-slate-400 mt-4 max-w-lg mx-auto">Nema instalacije, nema kompliciranih postavki. Samo otvori i koristi.</p>
+            <div className="text-center mb-12">
+              <div className="section-tag mb-4">AI Asistent</div>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+                Pitaj. <span className="gradient-text">Dobij odgovor.</span>
+              </h2>
+              <p className="text-[var(--text-secondary)] mt-4 max-w-lg mx-auto">
+                Naš AI analizira tvoje podatke i daje konkretne odgovore — ne generičke savjete.
+              </p>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[{ n: "1", t: "Kreiraj račun", d: "Postavi Firebase bazu i admin PIN. Traje 2 minute." },
-            { n: "2", t: "Dodaj projekte & radnike", d: "Unesi podatke o projektima i radnicima. Dodijeli uloge." },
-            { n: "3", t: "Radnici unose sate", d: "Svaki radnik otvara app s mobitela i evidentira rad." },
-            { n: "4", t: "Analiziraj & izvezi", d: "Pregledaj izvještaje, odobri sate, izvezi PDF-ove." }
-            ].map((step, i) => (
-              <Reveal key={i} delay={i * 0.12}>
-                <div className="card-base p-6 relative">
-                  <div className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center text-accent font-black text-lg mb-4">{step.n}</div>
-                  <div className="font-bold mb-2">{step.t}</div>
-                  <div className="text-sm text-slate-500 leading-relaxed">{step.d}</div>
-                  {i < 3 && <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-accent/30 text-2xl">→</div>}
+          <AiDemo />
+        </div>
+      </section>
+
+      {/* ━━━ LIVE ACTIVITY FEED ━━━ */}
+      <LiveFeed />
+
+      {/* ━━━ ROI CALCULATOR ━━━ */}
+      <RoiCalculator />
+
+      {/* ━━━ HOW IT WORKS ━━━ */}
+      <section id="how" className="py-24 border-t border-[var(--border-color)]">
+        <div className="max-w-[900px] mx-auto px-6">
+          <Reveal>
+            <div className="text-center mb-16">
+              <div className="section-tag mb-4">4 koraka</div>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+                Od nule do <span className="gradient-text">produktivnosti</span>
+              </h2>
+            </div>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              { step: "01", icon: <Smartphone size={24} />, title: "Otvori app", desc: "Registriraj se besplatno. Nema instalacije, nema kreditne kartice." },
+              { step: "02", icon: <Users size={24} />, title: "Dodaj radnike", desc: "Unesi tim — svaki radnik dobije svoj PIN pristup na mobitelu." },
+              { step: "03", icon: <Clock size={24} />, title: "Evidentiraj sate", desc: "Radnici unose. Ti odobriš jednim klikom. Gotovo." },
+              { step: "04", icon: <FileCheck size={24} />, title: "Generiraj izvještaje", desc: "PDF, Excel, AI analiza — sve automatski, u realnom vremenu." },
+            ].map((s, i) => (
+              <Reveal key={i} delay={i * 0.1}>
+                <div className="card-base p-6 relative overflow-hidden group">
+                  <div className="absolute -top-2 -right-2 text-[80px] font-black text-accent/[0.04] leading-none group-hover:text-accent/[0.08] transition-colors">{s.step}</div>
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4">{s.icon}</div>
+                  <h3 className="font-bold text-lg mb-2">{s.title}</h3>
+                  <p className="text-sm text-[var(--text-muted)] leading-relaxed">{s.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -158,31 +213,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════ Testimonials ═══════ */}
-      <section className="py-24 border-t border-white/[0.04]">
-        <div className="max-w-[1200px] mx-auto px-6">
+      {/* ━━━ TESTIMONIALS ━━━ */}
+      <section className="py-24 border-t border-[var(--border-color)]">
+        <div className="max-w-[900px] mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <div className="section-tag mb-4">Recenzije</div>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight">Što kažu korisnici</h2>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+                Što kažu <span className="gradient-text">korisnici?</span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { q: "Prije Vi-Di-Sefa imali smo Excel tablice i papire po svim gradilištima. Sad sve vidim u realnom vremenu s mobitela. Ušteda vremena je ogromna — barem 15 sati tjedno u administraciji.", a: "Marko H.", r: "Direktor, građevinska tvrtka — 45 radnika", icon: "👷" },
-              { q: "Otpremnice su nam bile noćna mora — papir, potpisi, skeniranja... Sad radnik fotografira robu, potpiše na ekranu i gotovo. PDF nastane automatski. Za nas je ovo bio game-changer.", a: "Ivan P.", r: "Voditelj gradilišta, Konstrukt d.o.o.", icon: "🏗️" },
-              { q: "Imamo radnike raspoređene na 6 lokacija i stalno smo gubili pregled tko je gdje. Otkad koristimo Vi-Di-Sef, svako jutro u 2 minute imam pregled svih radnika, sati i projekata. Preporučujem svima u branši.", a: "Ana K.", r: "Administrativa, ElektroGrad — 80+ radnika", icon: "📋" }
+              { name: "Marko H.", role: "Direktor, Gradnja Plus", text: "Od kad koristimo Vi-Di-Sef, imamo potpuni pregled nad svim projektima. Uštedili smo minimalno 15 sati tjedno na administraciji.", stars: 5 },
+              { name: "Ivana P.", role: "Voditeljica, Betonara Zagreb", text: "Konačno alat koji razumije građevinu. Radnici ga koriste bez problema — jednostavno kao WhatsApp.", stars: 5 },
+              { name: "Pero M.", role: "Vlasnik, PM Inženjering", text: "AI asistent mi je dao insight koji Excel nikad ne bi mogao. Sada donosim odluke na temelju podataka, ne pretpostavki.", stars: 5 },
             ].map((t, i) => (
-              <Reveal key={i} delay={i * 0.12}>
+              <Reveal key={i} delay={i * 0.1}>
                 <div className="card-base p-6 h-full flex flex-col">
-                  <div className="text-accent text-sm mb-3">★★★★★</div>
-                  <p className="text-sm text-slate-400 leading-relaxed flex-1 mb-6">„{t.q}"</p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
-                    <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-xl">{t.icon}</div>
-                    <div>
-                      <div className="font-bold text-sm">{t.a}</div>
-                      <div className="text-xs text-slate-600">{t.r}</div>
-                    </div>
+                  <div className="flex items-center gap-0.5 text-amber-400 mb-3">
+                    {Array.from({ length: t.stars }).map((_, j) => <span key={j}>★</span>)}
+                  </div>
+                  <p className="text-sm text-[var(--text-secondary)] italic leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</p>
+                  <div className="mt-4 pt-4 border-t border-[var(--border-color)]">
+                    <div className="font-bold text-sm">{t.name}</div>
+                    <div className="text-xs text-[var(--text-muted)]">{t.role}</div>
                   </div>
                 </div>
               </Reveal>
@@ -191,27 +247,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════ Security ═══════ */}
-      <section className="py-24 border-t border-white/[0.04]">
-        <div className="max-w-[1200px] mx-auto px-6">
+      {/* ━━━ SECURITY ━━━ */}
+      <section className="py-24 border-t border-[var(--border-color)]">
+        <div className="max-w-[900px] mx-auto px-6">
           <Reveal>
-            <div className="text-center mb-16">
-              <div className="section-tag mb-4">Sigurnost & Privatnost</div>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight">Tvoji podaci.<br />Naša odgovornost.</h2>
-              <p className="text-slate-400 mt-4 max-w-lg mx-auto">Industrijski standardi zaštite podataka. Svaki element sustava dizajniran s privatnošću na prvom mjestu.</p>
+            <div className="text-center mb-12">
+              <div className="section-tag mb-4">Sigurnost</div>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+                Tvoji podaci su <span className="gradient-text">zaštićeni.</span>
+              </h2>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[{ icon: "🔐", t: "SHA-256 enkripcija", d: "Svi PIN-ovi i osjetljivi podaci enkriptirani industrijskim standardom." },
-            { icon: "📝", t: "Audit log", d: "Svaka akcija u sustavu je zapisana, pretraživa i reverzibilna." },
-            { icon: "🛡️", t: "Rate limiting", d: "Zaštita od brute-force napada. Automatsko blokiranje sumnjivih pokušaja." },
-            { icon: "🔒", t: "HTTPS + Session", d: "Sva komunikacija enkriptirana. Session timeout za neaktivne korisnike." }
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: <Shield size={22} />, label: "SHA-256 enkripcija" },
+              { icon: <Lock size={22} />, label: "HTTPS + Rate limiting" },
+              { icon: <FileCheck size={22} />, label: "Audit log svih akcija" },
+              { icon: <Users size={22} />, label: "Role-based pristup" },
             ].map((s, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="card-base p-6 text-center">
-                  <div className="text-3xl mb-3">{s.icon}</div>
-                  <div className="font-bold text-sm mb-2">{s.t}</div>
-                  <div className="text-xs text-slate-500 leading-relaxed">{s.d}</div>
+              <Reveal key={i} delay={i * 0.08}>
+                <div className="card-base p-5 text-center">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mx-auto mb-3">{s.icon}</div>
+                  <div className="text-xs font-bold">{s.label}</div>
                 </div>
               </Reveal>
             ))}
@@ -219,32 +276,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════ FAQ ═══════ */}
-      <FAQ />
-
-      {/* ═══════ CTA ═══════ */}
-      <section id="contact" className="py-24 border-t border-white/[0.04]">
+      {/* ━━━ FAQ ━━━ */}
+      <section id="faq" className="py-24 border-t border-[var(--border-color)]">
         <div className="max-w-[700px] mx-auto px-6">
           <Reveal>
-            <div className="card-base p-12 text-center relative overflow-hidden">
-              <div className="hero-glow absolute -top-20 left-1/2 -translate-x-1/2 w-[400px] h-[300px]" />
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 relative">
-                Spreman digitalizirati<br />svoje poslovanje?
+            <div className="text-center mb-12">
+              <div className="section-tag mb-4">FAQ</div>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+                Česta <span className="gradient-text">pitanja</span>
               </h2>
-              <p className="text-slate-400 mb-8 relative">
-                Prijavi se besplatno i pokreni prvu evidenciju danas. Bez kreditne kartice, bez obaveze.
-              </p>
-              <MagneticButton>
-                <a href="mailto:info@vi-di.me"
-                  className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-10 py-4 rounded-2xl text-lg font-bold transition-all hover:shadow-[0_12px_40px_rgba(217,93,8,0.4)] relative">
-                  📧 Kontaktiraj nas
-                </a>
-              </MagneticButton>
-              <div className="mt-5 text-sm text-slate-600 relative">
-                <a href="https://www.vi-di.me" className="text-accent font-semibold hover:underline">www.vi-di.me</a>
-                &nbsp;•&nbsp; info@vi-di.me
-              </div>
             </div>
+          </Reveal>
+          <FAQ />
+        </div>
+      </section>
+
+      {/* ━━━ CTA ━━━ */}
+      <section className="py-24 border-t border-[var(--border-color)]">
+        <div className="max-w-[700px] mx-auto px-6 text-center relative">
+          <div className="hero-glow absolute -top-32 left-1/2 -translate-x-1/2" />
+          <Reveal>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6 relative z-10">
+              Spreman za <span className="gradient-text">promjenu?</span>
+            </h2>
+            <p className="text-[var(--text-secondary)] mb-8 relative z-10">
+              Započni besplatno. Bez kreditne kartice. Bez obveza.
+            </p>
+            <MagneticButton>
+              <a href="https://vi-di-sef.app" target="_blank" rel="noopener"
+                onClick={() => toast.success("Dobrodošao u Vi-Di-Sef! 🚀")}
+                className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-10 py-5 rounded-2xl text-lg font-bold transition-all hover:-translate-y-1 hover:shadow-[0_16px_50px_rgba(217,93,8,0.4)] relative z-10">
+                Otvori Vi-Di-Sef <ArrowRight size={20} />
+              </a>
+            </MagneticButton>
           </Reveal>
         </div>
       </section>

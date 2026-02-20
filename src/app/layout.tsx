@@ -4,6 +4,10 @@ import "./globals.css";
 import { Navbar, Footer, ProgressBar } from "@/components/layout";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { JsonLd } from "@/components/json-ld";
+import { ThemeProvider } from "@/components/theme-provider";
+import { CursorGlow } from "@/components/cursor-glow";
+import { CommandPalette } from "@/components/command-palette";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -31,9 +35,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Vi-Di.me", url: "https://www.vi-di.me" }],
   creator: "Vi-Di.me",
   publisher: "Vi-Di-Sef",
-  alternates: {
-    canonical: BASE_URL,
-  },
+  alternates: { canonical: BASE_URL },
   openGraph: {
     type: "website",
     locale: "hr_HR",
@@ -41,14 +43,7 @@ export const metadata: Metadata = {
     siteName: "Vi-Di-Sef",
     title: "Vi-Di-Sef — Upravljanje radnom snagom bez kompromisa",
     description: "Evidencija sati, projekti, računi, otpremnice, GPS praćenje — sve na jednom mjestu. Besplatan probni period.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Vi-Di-Sef — Platforma za upravljanje radnom snagom",
-      },
-    ],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Vi-Di-Sef — Platforma za upravljanje radnom snagom" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -57,39 +52,37 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    // Add these when you set up Google Search Console and Bing Webmaster Tools:
-    // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
+    index: true, follow: true,
+    googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
   },
   category: "technology",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="hr" className={inter.className}>
+    <html lang="hr" className={inter.className} suppressHydrationWarning>
       <head>
         <JsonLd />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body className="min-h-screen">
-        <div className="bg-grid" />
-        <SmoothScroll />
-        <ProgressBar />
-        <Navbar />
-        <main className="relative z-10">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <div className="bg-grid" />
+          <div className="bg-noise" />
+          <CursorGlow />
+          <SmoothScroll />
+          <ProgressBar />
+          <Navbar />
+          <CommandPalette />
+          <main className="relative z-10">{children}</main>
+          <Footer />
+          <Toaster theme="dark" position="bottom-right" richColors closeButton
+            toastOptions={{
+              style: { background: "#111118", border: "1px solid rgba(255,255,255,0.06)", color: "#F1F5F9" },
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
