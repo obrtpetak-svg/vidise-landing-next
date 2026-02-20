@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #D95D08;
+  --color-accent-hover: #F27B2A;
+  --color-accent-glow: rgba(217, 93, 8, 0.4);
+}
+
+@layer base {
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0A0A0F;
+    color: #F1F5F9;
+  }
+
+  ::selection { background: rgba(217, 93, 8, 0.3); color: white; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+}
+
+@layer components {
+  .gradient-text {
+    background: linear-gradient(135deg, #D95D08 0%, #F59E0B 50%, #D95D08 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #D95D08;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: #D95D08;
+    border-radius: 1px;
+  }
+
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(217,93,8,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(217,93,8,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,93,8,0.08), transparent 70%);
+    pointer-events: none;
+    filter: blur(40px);
+  }
+
+  .spotlight {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(217,93,8,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .card-base {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-base:hover {
+    border-color: rgba(217, 93, 8, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(217, 93, 8, 0.04);
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+}
+
+/* Particles */
+@keyframes float-up {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: float-up linear infinite;
+}
