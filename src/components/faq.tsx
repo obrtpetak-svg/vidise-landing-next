@@ -17,38 +17,27 @@ const faqItems = [
 export function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     return (
-        <section id="faq" className="py-24 border-t border-white/[0.04]">
-            <div className="max-w-[700px] mx-auto px-6">
-                <Reveal>
-                    <div className="text-center mb-16">
-                        <div className="section-tag mb-4">FAQ</div>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tight">Česta pitanja</h2>
-                        <p className="text-slate-400 mt-4">Sve što trebaš znati prije nego kreneš.</p>
+        <div className="space-y-3">
+            {faqItems.map((item, i) => (
+                <Reveal key={i} delay={i * 0.05}>
+                    <div className="card-base overflow-hidden">
+                        <button onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                            className="w-full flex items-center justify-between px-6 py-4 text-left group">
+                            <span className="font-semibold text-sm pr-4">{item.q}</span>
+                            <motion.span animate={{ rotate: openIndex === i ? 45 : 0 }}
+                                className="text-accent text-xl flex-shrink-0 font-light">+</motion.span>
+                        </button>
+                        <AnimatePresence>
+                            {openIndex === i && (
+                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
+                                    <div className="px-6 pb-4 text-sm text-slate-400 leading-relaxed">{item.a}</div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </Reveal>
-                <div className="space-y-3">
-                    {faqItems.map((item, i) => (
-                        <Reveal key={i} delay={i * 0.05}>
-                            <div className="card-base overflow-hidden">
-                                <button onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                                    className="w-full flex items-center justify-between px-6 py-4 text-left group">
-                                    <span className="font-semibold text-sm pr-4">{item.q}</span>
-                                    <motion.span animate={{ rotate: openIndex === i ? 45 : 0 }}
-                                        className="text-accent text-xl flex-shrink-0 font-light">+</motion.span>
-                                </button>
-                                <AnimatePresence>
-                                    {openIndex === i && (
-                                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-                                            <div className="px-6 pb-4 text-sm text-slate-400 leading-relaxed">{item.a}</div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </Reveal>
-                    ))}
-                </div>
-            </div>
-        </section>
+            ))}
+        </div>
     );
 }

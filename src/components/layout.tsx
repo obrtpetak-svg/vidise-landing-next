@@ -32,6 +32,9 @@ export function Navbar() {
                     <NavLink href="/#ai">AI Agent</NavLink>
                     <NavLink href="/#how">Kako radi</NavLink>
                     <NavLink href="/#faq">FAQ</NavLink>
+                    <NavLink href="/cijene">Cijene</NavLink>
+                    <NavLink href="/kontakt">Kontakt</NavLink>
+                    <NavLink href="/novosti">Novosti</NavLink>
                     {/* ⌘K hint rendered from CommandPalette component */}
                     {/* Theme toggle */}
                     {mounted && (
@@ -67,6 +70,9 @@ export function Navbar() {
                             <NavLink href="/#ai" onClick={() => setMobileOpen(false)}>AI Agent</NavLink>
                             <NavLink href="/#how" onClick={() => setMobileOpen(false)}>Kako radi</NavLink>
                             <NavLink href="/#faq" onClick={() => setMobileOpen(false)}>FAQ</NavLink>
+                            <NavLink href="/cijene" onClick={() => setMobileOpen(false)}>Cijene</NavLink>
+                            <NavLink href="/kontakt" onClick={() => setMobileOpen(false)}>Kontakt</NavLink>
+                            <NavLink href="/novosti" onClick={() => setMobileOpen(false)}>Novosti</NavLink>
                             <a href="https://vi-di-sef.app" target="_blank" rel="noopener"
                                 className="bg-accent text-white px-6 py-3 rounded-xl text-sm font-bold text-center mt-2">Otvori app →</a>
                         </div>
@@ -96,7 +102,8 @@ export function Footer() {
                     <div className="flex items-center gap-6 text-sm text-[var(--text-muted)]">
                         <Link href="/#features" className="hover:text-[var(--text-primary)] transition-colors">Mogućnosti</Link>
                         <Link href="/#how" className="hover:text-[var(--text-primary)] transition-colors">Kako radi</Link>
-                        <a href="mailto:info@vi-di.me" className="hover:text-[var(--text-primary)] transition-colors">Kontakt</a>
+                        <Link href="/kontakt" className="hover:text-[var(--text-primary)] transition-colors">Kontakt</Link>
+                        <Link href="/novosti" className="hover:text-[var(--text-primary)] transition-colors">Novosti</Link>
                         <a href="https://www.vi-di.me" target="_blank" className="hover:text-[var(--text-primary)] transition-colors">Vi-Di.me</a>
                     </div>
                 </div>

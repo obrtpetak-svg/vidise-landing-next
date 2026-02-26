@@ -7,6 +7,7 @@ const routes = [
     '/panel-za-radnike', '/smjestaj', '/obaveze', '/izvjestaji', '/sigurnost',
     '/dnevnik', '/vrijeme', '/gps-nadzor', '/qr-checkin', '/odmori',
     '/kalendar', '/obavijesti',
+    '/kontakt', '/novosti', '/cijene', '/integracije', '/blog',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

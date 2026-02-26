@@ -80,12 +80,77 @@ export function JsonLd() {
         ]
     };
 
+    const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Kako početi koristiti Vi-Di-Sef",
+        "description": "Od registracije do produktivnosti u 4 jednostavna koraka.",
+        "step": [
+            { "@type": "HowToStep", "position": 1, "name": "Otvori app", "text": "Registriraj se besplatno. Nema instalacije, nema kreditne kartice.", "url": "https://vi-di-sef.com/#how" },
+            { "@type": "HowToStep", "position": 2, "name": "Dodaj radnike", "text": "Unesi tim — svaki radnik dobije svoj PIN pristup na mobitelu.", "url": "https://vi-di-sef.com/#how" },
+            { "@type": "HowToStep", "position": 3, "name": "Evidentiraj sate", "text": "Radnici unose. Ti odobriš jednim klikom. Gotovo.", "url": "https://vi-di-sef.com/#how" },
+            { "@type": "HowToStep", "position": 4, "name": "Generiraj izvještaje", "text": "PDF, Excel, AI analiza — sve automatski, u realnom vremenu.", "url": "https://vi-di-sef.com/#how" },
+        ]
+    };
+
+    const localBusinessSchema = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Vi-Di-Sef",
+        "description": "Moderna platforma za upravljanje radnom snagom u građevinarstvu.",
+        "url": "https://vi-di-sef.com",
+        "logo": "https://vi-di-sef.com/logo.png",
+        "image": "https://vi-di-sef.com/og-image.png",
+        "telephone": "+385-xx-xxx-xxxx",
+        "email": "info@vi-di.me",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "HR",
+            "addressLocality": "Zagreb"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.815",
+            "longitude": "15.982"
+        },
+        "priceRange": "€€",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00"
+        }
+    };
+
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Početna", "item": "https://vi-di-sef.com" }
+        ]
+    };
+
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgEntity) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         </>
     );
+}
+
+export function BreadcrumbJsonLd({ pageName, pageUrl }: { pageName: string; pageUrl: string }) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Početna", "item": "https://vi-di-sef.com" },
+            { "@type": "ListItem", "position": 2, "name": pageName, "item": `https://vi-di-sef.com${pageUrl}` },
+        ]
+    };
+    return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

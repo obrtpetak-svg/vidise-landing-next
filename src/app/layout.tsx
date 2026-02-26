@@ -7,6 +7,12 @@ import { JsonLd } from "@/components/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CursorGlow } from "@/components/cursor-glow";
 import { CommandPalette } from "@/components/command-palette";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { FloatingCTA } from "@/components/floating-cta";
+import { CookieConsent } from "@/components/cookie-consent";
+import { SocialProofPopup } from "@/components/social-proof-popup";
+import { PageTransition } from "@/components/page-transition";
+import { CommandCenter } from "@/components/command-center";
 import { Toaster } from "sonner";
 
 const inter = Inter({
@@ -65,6 +71,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="alternate" hrefLang="hr" href="https://vi-di-sef.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://vi-di-sef.com" />
       </head>
       <body className="min-h-screen">
         <ThemeProvider>
@@ -75,8 +83,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ProgressBar />
           <Navbar />
           <CommandPalette />
-          <main className="relative z-10">{children}</main>
+          <main className="relative z-10"><PageTransition>{children}</PageTransition></main>
           <Footer />
+          <ScrollToTop />
+          <FloatingCTA />
+          <CookieConsent />
+          <SocialProofPopup />
+          <CommandCenter />
           <Toaster theme="dark" position="bottom-right" richColors closeButton
             toastOptions={{
               style: { background: "#111118", border: "1px solid rgba(255,255,255,0.06)", color: "#F1F5F9" },

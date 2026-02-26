@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Reveal, MagneticButton } from "./motion";
+import { BreadcrumbJsonLd } from "./json-ld";
 
 interface SubpageProps {
     icon: string;
@@ -17,9 +18,10 @@ interface SubpageProps {
 }
 
 export function SubpageTemplate(props: SubpageProps) {
+    const slug = props.title.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "i");
     return (
         <>
-            {/* Hero */}
+            <BreadcrumbJsonLd pageName={props.title} pageUrl={`/${slug}`} />
             <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
                 <div className="spotlight" />
                 <div className="max-w-[1200px] mx-auto px-6">
